@@ -1,15 +1,15 @@
 #include "push_swap.h"
 
-t_bool is_empty(int top)
+t_bool	is_empty(t_stack *stack)
 {
-	if (top == -1)
+	if (!stack || !stack->head)
 		return (true_);
 	return (false_);
 }
 
-t_bool is_full(int top, size_t size)
+t_bool	is_full(t_stack *stack)
 {
-	if (top == (int)size - 1)
+	if (!is_empty(stack) && stack->size == stack->full_size)
 		return (true_);
 	return (false_);
 }

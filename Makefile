@@ -31,11 +31,17 @@ SRCS = $(addprefix $(MANDATORY_DIR)/, main.c\
 		calculate_movements_a.c\
 		calculate_movements_b.c\
 		init_movements.c\
+		init_movements_r_rr.c\
 		apply_movements.c\
 		apply_rotations.c\
 		apply_reverse_rotations.c\
 		free_hash_table.c\
-		debug.c\
+		command.c\
+		stack_operations.c\
+		markup.c\
+		free.c\
+		print.c\
+		index.c\
 		)
 
 BONUS = $(addprefix $(BONUS_DIR)/, main_bonus.c\

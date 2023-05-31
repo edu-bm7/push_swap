@@ -1,21 +1,19 @@
 #include "push_swap.h"
 
-void	pa(t_stacks *stacks)
+void	pa(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list)
 {
-	if (is_empty(stacks->b_top) || is_full(stacks->a_top, stacks->size))
+	if (is_empty(stack_b) || is_full(stack_a))
 		return ;
-	stacks->a_top++;
-	stacks->a_stack[stacks->a_top] = stacks->b_stack[stacks->b_top];
-	stacks->b_top--;
-	ft_printf("pa\n");
+	push(stack_a, pop(stack_b));
+	if (list)
+		add_command(list, allocate_cmd("pa"));
 }
 
-void	pb(t_stacks *stacks)
+void	pb(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list)
 {
-	if (is_empty(stacks->a_top) || is_full(stacks->b_top, stacks->size))
+	if (is_empty(stack_a) || is_full(stack_b))
 		return ;
-	stacks->b_top++;
-	stacks->b_stack[stacks->b_top] = stacks->a_stack[stacks->a_top];
-	stacks->a_top--;
-	ft_printf("pb\n");
+	push(stack_b, pop(stack_a));
+	if (list)
+		add_command(list, allocate_cmd("pb"));
 }

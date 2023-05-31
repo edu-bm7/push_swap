@@ -10,7 +10,7 @@ void	free_node(t_list *head)
 
 void	free_hash_table(t_list *hash_table[])
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < HASH_TABLE_SIZE)

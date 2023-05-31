@@ -7,9 +7,10 @@ t_bool	check_limits_str(char *str);
 
 t_bool	validate_params(int argc, char *argv[], t_validation *validation)
 {
-	if (validate_numbers(argv, validation) && !has_repeat(argc, argv, validation))
-		return true_;
-	return false_;
+	if (validate_numbers(argv, validation)
+		&& !has_repeat(argc, argv, validation))
+		return (true_);
+	return (false_);
 }
 
 t_bool	validate_numbers(char *argv[], t_validation *validation)
@@ -27,10 +28,7 @@ t_bool	validate_numbers(char *argv[], t_validation *validation)
 			j++;
 		if ((argv[i][j] && !ft_isdigit(argv[i][j]))
 			|| is_bigger_than_int(argv[i]))
-		{
-			ft_dprintf(STDERR_FILENO, "Error\n");
 			return (false_);
-		}
 		if (ft_strchr(argv[i], ' '))
 		{
 			validation->has_quotes = true_;
@@ -76,7 +74,7 @@ t_bool	check_limits_str(char *str)
 {
 	size_t	words;
 	char	**split;
-	size_t 	i;
+	size_t	i;
 
 	i = 0;
 	words = count_words(str, ' ');
@@ -84,10 +82,7 @@ t_bool	check_limits_str(char *str)
 	while (i < words)
 	{
 		if (is_bigger_than_int(split[i]))
-		{
-			ft_dprintf(STDERR_FILENO, "Error\n");
 			return (false_);
-		}
 		i++;
 	}
 	return (true_);

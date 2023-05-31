@@ -1,29 +1,33 @@
 #include "push_swap.h"
 
-int	find_min(const int *arr, int top)
+int	find_min(t_stack *stack)
 {
-	int min;
+	int		min;
+	t_node	*current;
 
-	min = arr[top];
-	while (top != -1)
+	min = stack->head->number;
+	current = stack->head->next;
+	while (current != stack->head)
 	{
-		if (arr[top] < min)
-			min = arr[top];
-		top--;
+		if (current->number < min)
+			min = current->number;
+		current = current->next;
 	}
 	return (min);
 }
 
-int	find_max(const int *arr, int top)
+int	find_max(t_stack *stack)
 {
-	int max;
+	int		max;
+	t_node	*current;
 
-	max = arr[top];
-	while (top != -1)
+	max = stack->head->number;
+	current = stack->head->next;
+	while (current != stack->head)
 	{
-		if (arr[top] > max)
-			max = arr[top];
-		top--;
+		if (current->number > max)
+			max = current->number;
+		current = current->next;
 	}
 	return (max);
 }
@@ -39,16 +43,22 @@ t_bool	is_sorted(const int *arr, int top)
 	return (true_);
 }
 
-size_t	find_index(const int *arr, int value, int top)
+size_t	find_index(t_stack *stack, int value)
 {
-	int i;
+	int		index;
+	t_node	*current;
 
-	i = 0;
-	while (i < top)
+	if (stack->size > 0)
+		index = (int)stack->size - 1;
+	else
+		return (0);
+	current = stack->head;
+	while (index != -1)
 	{
-		if (arr[i] == value)
-			return (i);
-		i++;
+		if (current->number == value)
+			return (index);
+		current = current->next;
+		index--;
 	}
-	return (i);
+	return (index);
 }

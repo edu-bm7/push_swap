@@ -1,43 +1,43 @@
 #include "push_swap.h"
 
-void	sa(t_stacks *stacks)
-{
-	int	temp;
+static t_node	*swap(t_node *head);
 
-	if (stacks->a_top < 1)
-		return ;
-	temp = stacks->a_stack[stacks->a_top];
-	stacks->a_stack[stacks->a_top] = stacks->a_stack[stacks->a_top - 1];
-	stacks->a_stack[stacks->a_top - 1] = temp;
-	ft_printf("sa\n");
+void	sa(t_stack *stack_a, t_cmd_list *list)
+{
+	if (stack_a->size > 1)
+		stack_a->head = swap(stack_a->head);
+	if (list)
+		add_command(list, allocate_cmd("sa"));
 }
 
-void	sb(t_stacks *stacks)
+void	sb(t_stack *stack_b, t_cmd_list *list)
 {
-	int	temp;
-
-	if (stacks->b_top < 1)
-		return ;
-	temp = stacks->b_stack[stacks->b_top];
-	stacks->b_stack[stacks->b_top] = stacks->b_stack[stacks->b_top - 1];
-	stacks->b_stack[stacks->b_top - 1] = temp;
-	ft_printf("sb\n");
+	if (stack_b->size > 1)
+		stack_b->head = swap(stack_b->head);
+	if (list)
+		add_command(list, allocate_cmd("sb"));
 }
 
-void	ss(t_stacks *stacks)
+void	ss(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list)
 {
-	int	temp_a;
-	int	temp_b;
+	sa(stack_a, NULL);
+	sb(stack_b, NULL);
+	if (list)
+		add_command(list, allocate_cmd("ss"));
+}
 
-	if (stacks->a_top < 1)
-		return ;
-	if (stacks->b_top < 1)
-		return ;
-	temp_a = stacks->a_stack[stacks->a_top];
-	temp_b = stacks->b_stack[stacks->b_top];
-	stacks->a_stack[stacks->a_top] = stacks->a_stack[stacks->a_top - 1];
-	stacks->a_stack[stacks->a_top - 1] = temp_a;
-	stacks->b_stack[stacks->b_top] = stacks->b_stack[stacks->b_top - 1];
-	stacks->b_stack[stacks->b_top - 1] = temp_b;
-	ft_printf("ss\n");
+static t_node	*swap(t_node *head)
+{
+	t_node	*tmp_head;
+	t_node	*tmp_next;
+
+	tmp_head = head;
+	tmp_next = head->next;
+	tmp_head->next = tmp_next->next;
+	tmp_next->next->previous = tmp_head;
+	tmp_next->next = tmp_head;
+	tmp_next->previous = tmp_head->previous;
+	tmp_next->previous->next = tmp_next;
+	tmp_head->previous = tmp_next;
+	return (tmp_next);
 }

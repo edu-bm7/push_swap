@@ -22,17 +22,40 @@
 #  define DEBUG 0
 # endif
 
+
+
+typedef struct s_node
+{
+	int				number;
+	size_t			index;
+	t_bool			been_indexed;
+	t_bool			keep_in_stack;
+	struct s_node	*previous;
+	struct s_node	*next;
+}		t_node;
+
+typedef struct s_stack
+{
+	t_node	*head;
+	size_t 	size;
+	size_t	full_size;
+	t_bool	markup_index;
+	size_t 	keep_count;
+	t_node	*markup_head;
+}		t_stack;
+
 typedef struct s_stacks
 {
-	int		*a_stack;
-	int		*b_stack;
-	int		a_top;
-	int		b_top;
-	int		max_b;
-	int		min_b;
-	size_t	size;
+	t_stack *stack_a;
+	t_stack	*stack_b;
+//	int		a_top;
+//	int		b_top;
+//	int		max_b;
+//	int		min_b;
+//	size_t	size;
+	t_bool	has_mov;
 	size_t 	movements;
-	size_t 	b_max_index;
+//	size_t 	b_max_index;
 	size_t	ra;
 	size_t	rb;
 	size_t	rr;
@@ -41,30 +64,24 @@ typedef struct s_stacks
 	size_t	rrr;
 }		t_stacks;
 
-typedef struct s_node
-{
-	int				number;
-	size_t			index;
-	t_bool			been_indexed;
-	t_bool			keep_in_stack;
-	struct s_node	*next;
-}		t_node;
-
-typedef struct s_stack
-{
-	t_node	*top;
-	t_node	*bottom;
-	size_t 	size;
-	size_t 	keep_count;
-	t_node	*markup_head;
-}		t_stack;
-
 typedef struct s_validation
 {
 	t_list	*ht[HASH_TABLE_SIZE];
 	t_bool	has_quotes;
 	t_bool	has_ht;
 }		t_validation;
+
+typedef struct s_cmd
+{
+	const char		*name;
+	struct s_cmd	*next;
+}		t_cmd;
+
+typedef struct s_cmd_list
+{
+	size_t	size;
+	t_cmd	*head;
+}		t_cmd_list;
 
 typedef struct s_rotations
 {
@@ -96,7 +113,9 @@ void	init_stack_b_vars(t_stacks *stacks);
 void	init_rot_vars(t_stacks *stacks);
 void	calculate_movements_a_to_b(t_stacks *stacks);
 void	calculate_movements_b_to_a(t_stacks *stacks);
-int		get_a_placement(int value, t_stacks *stacks);
+t_cmd	*allocate_cmd(const char *name);
+void	add_command(t_cmd_list *list, t_cmd *cmd);
+int		get_a_placement(int value, t_stack *stack_a);
 int		get_b_placement(int value,t_stacks *stacks);
 void	init_movements_rot(t_rotations *rot);
 void	init_movements_rev_rot(t_rotations *rot);
@@ -106,32 +125,44 @@ void	init_movements_array(t_rotations *rot);
 t_bool	is_min_mov(int value, t_rotations *rot);
 void	assign_stacks_values(t_stacks *stacks,
 							 t_rotations *rot, size_t movements);
-size_t	find_index(const int *arr, int value, int top);
-void	apply_movements(t_stacks *stacks);
-void	apply_ra(t_stacks *stacks);
-void	apply_rb(t_stacks *stacks);
-void	apply_rr(t_stacks *stacks);
-void	apply_rra(t_stacks *stacks);
-void	apply_rrb(t_stacks *stacks);
-void	apply_rrr(t_stacks *stacks);
-t_bool	is_empty(int top);
-t_bool	is_full(int top, size_t size);
+size_t	find_index(t_stack *stack, int value);
+void	apply_movements(t_stacks *stacks, t_cmd_list *list);
+void	apply_ra(t_stacks *stacks, t_cmd_list *list);
+void	apply_rb(t_stacks *stacks, t_cmd_list *list);
+void	apply_rr(t_stacks *stacks, t_cmd_list *list);
+void	apply_rra(t_stacks *stacks, t_cmd_list *list);
+void	apply_rrb(t_stacks *stacks, t_cmd_list *list);
+void	apply_rrr(t_stacks *stacks, t_cmd_list *list);
+t_bool	is_empty(t_stack *stack);
+t_bool	is_full(t_stack *stack);
 t_bool	is_sorted(const int *arr, int top);
-int		find_min(const int *arr, int top);
-int		find_max(const int *arr, int top);
-void	sort_stacks(t_stacks *stacks);
+int		find_min(t_stack *stack);
+int			find_max(t_stack *stack);
+t_cmd_list	*sort_stacks(t_stacks *stacks);
 void	print_stack_a(t_stacks *stacks);
 void	print_stack_b(t_stacks *stacks);
-void	sa(t_stacks *stacks);
-void	sb(t_stacks *stacks);
-void	ss(t_stacks *stacks);
-void	pa(t_stacks *stacks);
-void	pb(t_stacks *stacks);
-void	ra(t_stacks *stacks);
-void	rb(t_stacks *stacks);
-void	rr(t_stacks *stacks);
-void	rra(t_stacks *stacks);
-void	rrb(t_stacks *stacks);
-void	rrr(t_stacks *stacks);
+void	sa(t_stack *stack_a, t_cmd_list *list);
+void	sb(t_stack *stack_b, t_cmd_list *list);
+void	ss(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
+void	pa(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
+void	pb(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
+void	ra(t_stack *stack, t_cmd_list *list);
+void	rb(t_stack *stack, t_cmd_list *list);
+void	rr(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
+void	rra(t_stack *stack, t_cmd_list *list);
+void	rrb(t_stack *stack, t_cmd_list *list);
+void	rrr(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
+void	push(t_stack *stack, t_node *new_node);
+t_node	*pop(t_stack *stack);
+t_node	*new_node(int number);
+void	index_stack(t_stack *stack);
+void	markup_index(t_stack *stack);
+void	markup_gt(t_stack *stack);
+size_t	index_keep_count(t_stack *stack, t_node *markup_head);
+size_t	gt_keep_count(t_stack *stack, t_node *markup_head);
+void	free_stacks(t_stack *stack);
+void	free_cmd_list(t_cmd_list *list);
+void	print_commands(t_cmd_list *list);
+void	push_all_from_b_to_a(t_stacks *stacks, t_cmd_list *list);
 
 #endif
