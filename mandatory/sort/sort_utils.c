@@ -32,17 +32,6 @@ int	find_max(t_stack *stack)
 	return (max);
 }
 
-t_bool	is_sorted(const int *arr, int top)
-{
-	while (top)
-	{
-		if (arr[top] > arr[top - 1])
-			return (false_);
-		top--;
-	}
-	return (true_);
-}
-
 size_t	find_index(t_stack *stack, int value)
 {
 	int		index;

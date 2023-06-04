@@ -92,7 +92,7 @@ t_cmd_list	*sort_stacks(t_stacks *stacks)
 	sort_a(stacks->stack_a, stacks->stack_b, list);
 	push_all_from_b_to_a(stacks, list);
 	index = (int)find_index(stacks->stack_a, find_min(stacks->stack_a));
-	if (index > (int)(stacks->stack_a->size - 1) / 2)
+	if (index >= (int)(stacks->stack_a->size - 1) / 2)
 	{
 		stacks->ra = (int)(stacks->stack_a->size - 1) - index;
 		apply_ra(stacks, list);

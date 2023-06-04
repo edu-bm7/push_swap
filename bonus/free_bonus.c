@@ -1,22 +1,6 @@
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static void	free_stack(t_stack *stack);
-
-void	free_cmd_list(t_cmd_list *list)
-{
-	t_cmd	*current;
-	t_cmd	*tmp;
-
-	current = list->head;
-	while (current)
-	{
-		tmp = current;
-		current = current->next;
-		free(tmp);
-	}
-	free(list);
-	list = NULL;
-}
 
 void	free_stacks(t_stacks *stacks)
 {

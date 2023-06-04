@@ -2,7 +2,7 @@
 
 static void	calculate_rotations_b_to_a(t_stacks *stacks, int nbr, int idx_b);
 static void	assign_rot_vars(t_rotations *rot, t_stacks *stacks,
-							   int index, int idx_b);
+				int index, int idx_b);
 
 void	push_all_from_b_to_a(t_stacks *stacks, t_cmd_list *list)
 {
@@ -73,7 +73,7 @@ static void	calculate_rotations_b_to_a(t_stacks *stacks, int nbr, int idx_b)
 }
 
 static void	assign_rot_vars(t_rotations *rot, t_stacks *stacks,
-							   int index, int idx_b)
+				int index, int idx_b)
 {
 	rot->ra = (int)(stacks->stack_a->size) - 1 - index;
 	rot->rb = (int)(stacks->stack_b->size) - 1 - idx_b;

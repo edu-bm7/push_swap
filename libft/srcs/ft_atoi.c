@@ -16,7 +16,7 @@
 #define MIN_INT -2147483648
 
 static int	ft_hexval(char c);
-static int hex_routine(const char **nptr, int result);
+static int	hex_routine(const char **nptr, int result);
 
 int	ft_atoi(const char *nptr)
 {
@@ -52,7 +52,7 @@ static int	ft_hexval(char c)
 	return (0);
 }
 
-static int hex_routine(const char **nptr, int result)
+static int	hex_routine(const char **nptr, int result)
 {
 	if (ft_strncmp(*nptr, "0x", 2) == 0)
 	{
@@ -63,5 +63,5 @@ static int hex_routine(const char **nptr, int result)
 			(*nptr)++;
 		}
 	}
-	return result;
+	return (result);
 }

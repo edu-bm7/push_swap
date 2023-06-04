@@ -1,9 +1,10 @@
 #include "push_swap.h"
 
-void	init_hash_table(t_list *hash_table[], t_validation *validation);
-t_bool	search_hash_table(t_list *hash_table[], void *number);
-void	insert_into_htable(t_list *hash_table[], void *number);
-t_bool	check_split_param(char *str, t_list *hash_table[]);
+static void		init_hash_table(t_list *hash_table[],
+					t_validation *validation);
+static t_bool	search_hash_table(t_list *hash_table[], void *number);
+static void		insert_into_htable(t_list *hash_table[], void *number);
+static t_bool	check_split_param(char *str, t_list *hash_table[]);
 
 t_bool	has_repeat(int argc, char *argv[], t_validation *validation)
 {
@@ -95,10 +96,14 @@ t_bool	check_split_param(char *str, t_list *hash_table[])
 	{
 		number = ft_atoi(split[i]);
 		if (search_hash_table(hash_table, (void *)(intptr_t) number))
+		{
+			free_str_array(split);
 			return (true_);
+		}
 		else
 			insert_into_htable(hash_table, (void *)(intptr_t) number);
 		i++;
 	}
+	free_str_array(split);
 	return (false_);
 }
