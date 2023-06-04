@@ -13,9 +13,7 @@ LIBFT_DIR := libft
 LIBFT := libft.a
 
 CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(INC_DIR) -g3
-ifdef DEBUG
-	CFLAGS += -D DEBUG=1
-endif
+
 SRCS = $(addprefix $(MANDATORY_DIR)/, main.c\
 		validation/parameters_validation.c\
 		validation/has_repeat.c\

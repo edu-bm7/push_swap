@@ -18,9 +18,7 @@
 
 # define HASH_TABLE_SIZE 1000
 # define MOVEMENTS 4
-# ifndef DEBUG
-#  define DEBUG 0
-# endif
+
 
 typedef struct s_node
 {
@@ -124,8 +122,6 @@ int			find_min(t_stack *stack);
 int			find_max(t_stack *stack);
 t_cmd_list	*sort_stacks(t_stacks *stacks);
 void		sa(t_stack *stack_a, t_cmd_list *list);
-void		sb(t_stack *stack_b, t_cmd_list *list);
-void		ss(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
 void		pa(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
 void		pb(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list);
 void		ra(t_stack *stack, t_cmd_list *list);

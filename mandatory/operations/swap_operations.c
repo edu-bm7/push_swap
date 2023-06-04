@@ -10,22 +10,6 @@ void	sa(t_stack *stack_a, t_cmd_list *list)
 		add_command(list, allocate_cmd("sa"));
 }
 
-void	sb(t_stack *stack_b, t_cmd_list *list)
-{
-	if (stack_b->size > 1)
-		stack_b->head = swap(stack_b->head);
-	if (list)
-		add_command(list, allocate_cmd("sb"));
-}
-
-void	ss(t_stack *stack_a, t_stack *stack_b, t_cmd_list *list)
-{
-	sa(stack_a, NULL);
-	sb(stack_b, NULL);
-	if (list)
-		add_command(list, allocate_cmd("ss"));
-}
-
 static t_node	*swap(t_node *head)
 {
 	t_node	*tmp_head;

@@ -18,9 +18,7 @@
 
 # define HASH_TABLE_SIZE 1000
 # define MOVEMENTS 4
-# ifndef DEBUG
-#  define DEBUG 0
-# endif
+
 
 typedef struct s_node
 {

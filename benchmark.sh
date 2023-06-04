@@ -2,14 +2,14 @@
 
 MAX=0
 ITERATIONS=0
-LIMIT=12
+LIMIT=700
 FILE=problem_100
 SUM=0
 
 for i in {1..1000}
 do
-		export ARG="$(seq 1 5 | shuf -n 5)"
-		if ./push_swap $ARG | ./checker_linux $ARG | grep -q KO
+		export ARG="$(seq 1 100 | shuf -n 100)"
+		if ./push_swap $ARG | ./checker $ARG | grep -q KO
 		then
 			echo "Error!"
 			echo $ARG
