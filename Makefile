@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -I$(LIBFT_DIR) -I$(INC_DIR) -g3
 
 SRCS = $(addprefix $(MANDATORY_DIR)/, main.c\
 		validation/parameters_validation.c\
+		validation/validation_handler.c\
 		validation/has_repeat.c\
 		validation/free_hash_table.c\
 		operations/swap_operations.c\
@@ -44,6 +45,7 @@ SRCS = $(addprefix $(MANDATORY_DIR)/, main.c\
 
 BONUS = $(addprefix $(BONUS_DIR)/, main_bonus.c\
 		validation/parameters_validation_bonus.c\
+		validation/validation_handler_bonus.c\
 		validation/has_repeat_bonus.c\
 		validation/free_hash_table_bonus.c\
 		init_stacks/init_stacks_bonus.c\
@@ -67,13 +69,13 @@ OBJS_SUBDIR := $(subst $(MANDATORY_DIR), $(OBJS_DIR), $(SRC_SUBDIR))
 BONUS_OBJS_SUBDIR := $(subst $(BONUS_DIR), $(BONUS_OBJS_DIR), $(BONUS_SUBDIR))
 
 $(NAME): $(OBJS) | libft
-	@$(CC) $(OBJS) -o $@ -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS) $(OBJS) -o $@ -L$(LIBFT_DIR) -lft
 	@echo "--------------------------"
 	@echo "push_swap binary created."
 	@echo "--------------------------"
 
 $(NAME_BONUS): $(BONUS_OBJS) | libft
-	@$(CC) $(BONUS_OBJS) -o $@ -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS) $(BONUS_OBJS) -o $@ -L$(LIBFT_DIR) -lft
 	@touch $@
 	@echo "--------------------------"
 	@echo "Checker binary created."

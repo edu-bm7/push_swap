@@ -15,9 +15,7 @@
 #define MAX_INT 2147483647
 #define MIN_INT_STR "-2147483648"
 
-static t_bool	check_limits_str(char *str);
 static t_bool	validate_numbers(char *argv[], t_validation *validation);
-static t_bool	is_bigger_than_int(const char *nptr);
 static t_bool	check_int_limits(long result, int digit);
 
 void	validate_params(int argc, char *argv[], t_validation *validation)
@@ -39,30 +37,29 @@ static t_bool	validate_numbers(char *argv[], t_validation *validation)
 {
 	int		i;
 	int		j;
+	t_bool	has_digit;
 
 	i = 1;
 	while (argv[i])
 	{
 		j = 0;
+		has_digit = false_;
 		if (argv[i][0] == '-' || argv[i][0] == '+')
 			j++;
 		while (ft_isdigit(argv[i][j]) || argv[i][j] == ' ')
-			j++;
-		if ((argv[i][j] && !ft_isdigit(argv[i][j]))
-			|| is_bigger_than_int(argv[i]))
-			return (false_);
-		if (ft_strchr(argv[i], ' '))
 		{
-			validation->has_quotes = true_;
-			if (!check_limits_str(argv[i]))
-				return (false_);
+			if (ft_isdigit(argv[i][j]))
+				has_digit = true_;
+			j++;
 		}
+		if (!validate_handler(validation, has_digit, argv[i][j], argv[i]))
+			return (false_);
 		i++;
 	}
 	return (true_);
 }
 
-static t_bool	is_bigger_than_int(const char *nptr)
+t_bool	is_bigger_than_int(const char *nptr)
 {
 	long	result;
 	int		digit;
@@ -92,7 +89,7 @@ static t_bool	check_int_limits(long result, int digit)
 	return (false_);
 }
 
-static t_bool	check_limits_str(char *str)
+t_bool	check_limits_str(char *str)
 {
 	size_t	words;
 	char	**split;

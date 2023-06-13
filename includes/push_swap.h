@@ -143,5 +143,9 @@ void		print_commands(t_cmd_list *list);
 void		push_all_from_b_to_a(t_stacks *stacks, t_cmd_list *list);
 void		init_stacks_vars(t_stacks *stacks, t_validation *validation,
 				int argc, char *argv[]);
+t_bool		validate_handler(t_validation *validation, t_bool has_digit,
+				char c, char *str);
+t_bool		is_bigger_than_int(const char *nptr);
+t_bool		check_limits_str(char *str);
 
 #endif

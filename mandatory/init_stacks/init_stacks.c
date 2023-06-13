@@ -100,8 +100,8 @@ static void	deal_with_str(t_stack *stack_a, char *str)
 	{
 		push(stack_a, new_node(ft_atoi(split[i])));
 		i--;
-		if (i == 0)
-			push(stack_a, new_node(ft_atoi(split[i])));
 	}
+	if (i == 0)
+		push(stack_a, new_node(ft_atoi(split[i])));
 	free_str_array(split);
 }

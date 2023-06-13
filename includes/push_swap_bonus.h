@@ -115,5 +115,9 @@ t_bool		is_full(t_stack *stack);
 t_bool		is_sorted(t_stack *stack);
 t_bool		stack_a_is_sorted(t_stacks *stacks);
 void		free_stacks(t_stacks *stacks);
+t_bool		validate_handler(t_validation *validation, t_bool has_digit,
+				char c, char *str);
+t_bool		is_bigger_than_int(const char *nptr);
+t_bool		check_limits_str(char *str);
 
 #endif
